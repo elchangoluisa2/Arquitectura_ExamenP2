@@ -45,6 +45,7 @@ public class TurnoServicio {
         BigDecimal montoInicial = calcularTotalDenominaciones(inicioTurnoDTO.getMontoInicial());
         turno.setMontoInicial(montoInicial);
         turno.setEstado("ABIERTO");
+        turno.setTotalTransacciones(BigDecimal.ZERO);
 
         return this.turnoCajaRepositorio.save(turno);
     }
@@ -55,6 +56,8 @@ public class TurnoServicio {
                 .orElseThrow(() -> new RuntimeException("No se encontró un turno abierto con el código: " + codigoTurno));
 
         TransaccionTurno transaccion = new TransaccionTurno();
+        transaccion.setCodigoCaja(turno.getCodigoCaja());
+        transaccion.setCodigoCajero(turno.getCodigoCajero());
         transaccion.setCodigoTurno(codigoTurno);
         transaccion.setTipoTransaccion(transaccionDTO.getTipoTransaccion());
         transaccion.setFechaHora(LocalDateTime.now());
