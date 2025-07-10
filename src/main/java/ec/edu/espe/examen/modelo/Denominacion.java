@@ -11,4 +11,5 @@ public class Denominacion {
     private Integer valor;
     private Integer cantidad;
     private BigDecimal monto;
+
 }

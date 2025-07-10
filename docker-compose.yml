@@ -1,0 +1,30 @@
+version: '1.0'
+
+services:
+  mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - examen-net
+
+  examen-api:
+    build: .
+    container_name: examen-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo-db
+    networks:
+      - examen-net
+
+networks:
+  examen-net:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
